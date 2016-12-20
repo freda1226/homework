@@ -1,109 +1,606 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset='utf-8'>
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <meta name="viewport" content="width=640">
+    <head>
+        <title>Lobibox - Responsive jQuery notification plugin</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!--<link rel="stylesheet" href="bootstrap/dist/css/bootstrap.min.css"/>-->
+        <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css"/>
+        <link rel="stylesheet" href="demo/demo.css"/>
+        
+        <link rel="stylesheet" href="dist/css/Lobibox.min.css"/>
+    </head>
+    <body>
+        <div class="container-fluid">
+            <div class="container-content">
+                <!--Messageboxes-->
+                <div id="messageboxes">
+                    <!--Example-->
+                    <div id="lobibox-messagebox-examples">
+                        <h3>Examples</h3>
+                        <div>
+                            <!--Basic examples-->
+                            <div class="bs-example">
+                                <!--Confirm-->
+                                <fieldset>
+                                    <div class="bs-example">
+                                        <button id="popupYesNoBasic" class="btn btn-primary">Confirm</button>
+                                    </div>
+                                </fieldset>
+                                <!--Alerts-->
+                                <fieldset>
+                                    <div class="bs-example">
+                                        <button id="popupErrorBasic" class="btn btn-danger">Show Error</button>
+                                        <button id="popupSuccessBasic" class="btn btn-success">Show Success</button>
+                                        <button id="popupInfoBasic" class="btn btn-info">Show info</button>
+                                        <button id="popupWarningBasic" class="btn btn-warning">Show Warning</button>
+                                    </div>
+                                </fieldset>
+                                <!--Prompt-->
+                                <fieldset>
+                                    <div class="bs-example">
+                                        <button id="popupPromptBasic" class="btn btn-primary">Prompt</button>
+                                    </div>
+                                </fieldset>
+                                <!--Progress-->
+                                <fieldset>
+                                    <div class="bs-example">
+                                        <button id="popupProgressBasic" class="btn btn-primary">Progress</button>
+                                    </div>
+                                    <div class="bs-example">
+                                        <button id="popupProgressBootstrap" class="btn btn-primary">Bootstrap progress</button>
+                                    </div>
+                                </fieldset>
+                                <!--Window-->
+                                <fieldset>
+                                    <div class="bs-example">
+                                        <button id="popupWindowBasic" class="btn btn-primary">Window</button>
+                                    </div>
+                                </fieldset>
+                            </div>
+                            <!--Custom buttons-->
+                            <div>
+                                <div class="bs-example">
+                                    <h3>Custom buttons</h3>
+                                    <button id="popupProgressErrorButtons" class="btn btn-danger">Error</button>
+                                </div>
+                            </div>
+                            <!--Disable icon-->
+                            <div>
+                                <div class="bs-example">
+                                    <h3>Disable icon</h3>
+                                    <button id="popupConfirmNoIcon" class="btn btn-primary">Button</button>
+                                </div>
+                            </div>
+                            <!--Lobibox window-->
+                            <div>
+                                <div class="bs-example">
+                                    <h3>Advanced usage of Lobibox.window</h3>
+                                    <button id="popupWindowExample" class="btn btn-primary">Window</button>
+                                </div>
+                            </div>
+                        </div>
+                        <!--Callbacks-->
+                        <div>
+                            <div class="bs-example">
+                                <h3>Callbacks</h3>
+                                <div class="callout callout-info">
+                                    <p>All popup boxes have <code>callback</code> option</p>
+                                </div>
+                                <button id="popupYesNoCallback" class="btn btn-primary">Confirm</button>
+                            </div>
+                            <div class="highlight">
+                                <pre><code>Lobibox.confirm({
+    msg: "Are you sure you want to delete this user?",
+    callback: function ($this, type, ev) {
+        //Your code goes here
+    }
+});        
+</code></pre>
+                            </div>
+                        </div>
+                        <form id="lobibox-popup-demo-form" action>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label class="control-label">Popup type</label>
+                                        <select class="form-control" name="popupType">
+                                            <option value="confirm">Confirm</option>
+                                            <option value="alert">Alert</option>
+                                            <option value="prompt">Prompt</option>
+                                            <option value="progress">Progress</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">
+                                        <a class="collapsed" data-toggle="collapse"  href="#common-fieldset-wrapper">
+                                            Common parameters
+                                        </a>
+                                    </h4>
+                                </div>
+                                <div id="common-fieldset-wrapper" class="panel-collapse collapse in">
+                                    <div class="panel-body">
+                                        <fieldset>
+                                            <div class="row">
+                                                <div class="col-sm-3">
+                                                    <div class="form-group">
+                                                        <label class="control-label">title</label>
+                                                        <input type="text" name="title" class="form-control" value=""/>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <label class="control-label">Base class <small>(default)</small></label>
+                                                    <input type="text" name="baseClass" class="form-control" value="animated-super-fast"/>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <label class="control-label">Show class</label>
+                                                    <input type="text" name="showClass" class="form-control" value="zoomIn"/>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <label class="control-label">Hide class</label>
+                                                    <input type="text" name="hideClass" class="form-control" value="zoomOut"/>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <label class="control-label">Message</label>
+                                                    <textarea rows="4" class="form-control" name="msg"></textarea>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <div class="form-group">
+                                                        <label class="control-label">Width</label>
+                                                        <div class="form-group">
+                                                            <input type="number" name="width" class="form-control"/>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <div class="form-group">
+                                                        <label class="control-label">Height</label>
+                                                        <div class="form-group">
+                                                            <input type="text" name="height" value="auto" class="form-control"/>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-3">
+                                                    <div class="form-group">
+                                                        <label class="control-label"></label>
+                                                        <div class="checkbox">
+                                                            <label>
+                                                                <input type="checkbox" name="closeButton" checked=""> Close button
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <div class="form-group">
+                                                        <label class="control-label"></label>
+                                                        <div class="checkbox">
+                                                            <label>
+                                                                <input type="checkbox" name="draggable"> Draggable
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <div class="form-group">
+                                                        <label class="control-label"></label>
+                                                        <div class="checkbox">
+                                                            <label>
+                                                                <input type="checkbox" name="modal" checked=""> Modal
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <div class="form-group">
+                                                        <label class="control-label"></label>
+                                                        <div class="checkbox">
+                                                            <label>
+                                                                <input type="checkbox" name="closeOnEsc"> Close on escape
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </fieldset>
+                                    </div>
+                                </div>
+                            </div>
 
-    <link rel="stylesheet" href="stylesheets/core.css" media="screen">
-    <link rel="stylesheet" href="stylesheets/mobile.css" media="handheld, only screen and (max-device-width:640px)">
-    <link rel="stylesheet" href="stylesheets/github-light.css">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="panel-group" id="accordion" role="tablist">
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading" role="tab" id="headingOne">
+                                                <h4 class="panel-title">
+                                                    <a data-toggle="collapse" data-parent="#accordion" href="#confirm-options" aria-expanded="true" aria-controls="collapseOne">
+                                                        Confirm options
+                                                    </a>
+                                                </h4>
+                                            </div>
+                                            <div id="confirm-options" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                                                <div class="panel-body">
+                                                    <fieldset class="confirm-fieldset">
+                                                        <div class="row">
+                                                            <div class="col-md-4">
+                                                                <div class="form-group">
+                                                                    <label class="control-label">Icon Class</label>
+                                                                    <input type="text" class="form-control" name="iconClass" value="glyphicon glyphicon-question-sign"/>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </fieldset>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading" role="tab" id="headingTwo">
+                                                <h4 class="panel-title">
+                                                    <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#alert-options" aria-expanded="false" aria-controls="collapseTwo">
+                                                        Alert options
+                                                    </a>
+                                                </h4>
+                                            </div>
+                                            <div id="alert-options" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                                                <div class="panel-body">
+                                                    <fieldset class="alert-fieldset" disabled="">
+                                                        <div class="row">
+                                                            <div class="col-md-4">
+                                                                <div class="form-group">
+                                                                    <label class="control-label">Alert type</label>
+                                                                    <select class="form-control" name="type">
+                                                                        <option value="success">Success</option>
+                                                                        <option value="error">Error</option>
+                                                                        <option value="info">Info</option>
+                                                                        <option value="warning">Warning</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                <div class="form-group">
+                                                                    <label class="control-label">Icon Class</label>
+                                                                    <input type="text" class="form-control" name="iconClass"/>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </fieldset>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading" role="tab">
+                                                <h4 class="panel-title">
+                                                    <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#prompt-options" aria-expanded="false" aria-controls="collapseThree">
+                                                        Prompt options
+                                                    </a>
+                                                </h4>
+                                            </div>
+                                            <div id="prompt-options" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+                                                <div class="panel-body">
+                                                    <fieldset class="prompt-fieldset" disabled="">
+                                                        <div class="row">
+                                                            <div class="col-md-4">
+                                                                <div class="form-group">
+                                                                    <label class="control-label">Type</label>
+                                                                    <input type="text" class="form-control" name="type" value="text"/>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                <div class="form-group">
+                                                                    <label class="control-label">Placeholder</label>
+                                                                    <input type="text" class="form-control" name="placeholder" value=""/>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                <div class="form-group">
+                                                                    <label class="control-label">Value</label>
+                                                                    <input type="text" class="form-control" name="value" value=""/>
+                                                                </div>
+                                                            </div>
+                                                        </div>
 
-    <script type="text/javascript" src="javascripts/modernizr.js"></script>
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-    <script type="text/javascript" src="javascripts/headsmart.min.js"></script>
-    <script type="text/javascript">
-      $(document).ready(function () {
-        $('#main_content').headsmart()
-      })
-    </script>
-    <title>小說世界</title>
-  </head>
-
-  <body>
-    <a id="forkme_banner" href="https://github.com/freda1226/homework">View on GitHub</a>
-    <div class="shell">
-
-      <header>
-        <span class="ribbon-outer">
-          <span class="ribbon-inner">
-            <h1>彩雲國物語</h1>
-            <h2></h2>
-          </span>
-          <span class="left-tail"></span>
-          <span class="right-tail"></span>
-        </span>
-      </header>
-
-      <section id="downloads">
-        <span class="inner">
-          <a href="https://zh.wikipedia.org/wiki/%E5%BD%A9%E9%9B%B2%E5%9C%8B%E7%89%A9%E8%AA%9E" class="zip">維基百科</a></span>
-      </section>
-      <span class="banner-fix"></span>
-
-
-      <section id="main_content">
-<h3>
-<a id="authors-and-contributors" class="anchor" href="#authors-and-contributors" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>角色介紹</h3>
-<table border="10" style="border-color:#f2e6ff;background-color:#ffffcc;border-radius:25">
-	<tr style="background-color:#ccffff">
-		<th style="color:#663300"><b>名子</b></th>
-		<th>人物簡介</th>
-		<th colspan="3">圖片</th>
-		</tr>
-	<tr>
-		<td style="color: #ff0000"><a id="ch1">紅秀麗</a></td>
-		<td>紅邵可和薔薇公主的女兒，堅強獨立，勤奮節儉，擅於烹飪和拉二胡。酒量非常大，賭運極強。害怕雷聲，衹要一打雷就會讓靜蘭陪她睡，而且會緊抱靜蘭不放驚叫連連地渡過一整晚。在薔薇公主去世後，紅家派來的家僕把他們的財產和薔薇公主的遺物搜刮一空，所以雖然貴為名門紅家直系長千金，但是家境卻十分貧困。因此，需要經常四處做兼職而賺取生活費。小時候經歷過動亂，眼見百姓生活在水深火熱之中，民不聊生，因此立志成為能為百姓帶來幸福的官吏。當得知女性不能參加國試後，便將夢想寄予孩子們，在私塾裡當老師。後有成功當上官吏。</td>
-		<td><img src="image/秀麗.jpg" width="300" height="150"></td>
-	</tr>
-	<tr>
-		<td style="color: #a94dff"><a id="ch2">紫劉輝</a></td>
-		<td>現任彩雲國國王，喜歡秀麗，由於生為先王最小的六王子，因此被母親嫌棄，更被異母兄弟欺凌。在八年前的王位之爭中，除清苑外，其他異母兄弟均同歸於盡，因此登上王位。唯一對他溫柔的兄長 - 清苑皇子在他6歲時遭到流放。為了等待王兄回來，讓他取代自己登上王位，假裝為好男色的昏君。學問由邵可傳授，劍術則由宋太傅指導，文武皆擅長，才華出眾。被後世稱為最盛世的名君，年號「上治」。與秀麗邂逅之後，立意成為明君，整頓朝政。受到秀麗影響，非常喜愛童話故事「薔薇公主」。劉輝經常造訪府庫找邵可談心，是少數能忍受邵可極苦「父茶」的人。
-		因為兒時經歷害怕寂寞、怕黑，但和秀麗相遇後改善了不少。秀麗離宮後，為了接近秀麗，開放女性參加國試。希望能成為童話故事中既愛著「薔薇姬」也被其所愛的平凡男子，能等就等，不使用王的權利硬將秀麗娶進後宮。同時為了不讓任何人送姑娘進後宮，宣言「只娶一妃」。</td>
-		<td><img src="image/劉輝.jpg" width="300" height="150"></td>
-	</tr>
-	<tr>
-		<td style="color: #a94dff"><a id="ch3">茈靜蘭</a></td>
-		<td>紅家的家臣，有一張娃娃臉，故自稱自己只有二十一歲。真正的身份是被流放的二皇子 - 清苑皇子。被流放至茶州，被茶朔洵送進殺刃賊(被稱為小旋風)，其間是不堪的回憶，卻也因此結識浪燕青。因為在武藝表現出色和效忠劉輝與秀麗，而被後世以「武有藍茈，文有李紅」、「紅花馭雙玉」所讚揚。精通琴棋書畫，劍藝出眾，文武雙全的他被譽為最優秀的皇子，更曾受先王御賜「干將」、「莫邪」兩把寶劍，因此曾被認定為繼任國王的人選。在皇子時期，不相信除了劉輝其它的人，然而在被邵可一家收養後，逐漸打開心扉，但仍然習慣和人保持一定距離。對秀麗、邵可一家人和劉輝相當溫柔，但對其他人會展現心機和腹黑的一面。在浪燕青前甚至會展露兇惡的一面，而在榛蘇芳面前會完全失去自己的「美男子」形象，榛蘇芳稱為「竹筍家僕」、「美男家臣」。</td>
-		<td><img src="image/靜蘭.jpg" width="300" height="150"></td>
-	</tr>
-	<tr>
-		<td style="color:#1a1aff"><a id="ch4">藍楸瑛</a></td>
-		<td>年輕的武官，左羽林軍將軍，紫劉輝的近臣。名門藍家直系出身，藍龍蓮的兄長。藍龍蓮叫他做愚兄之四。與李絳攸是同期國試考生，同屆18歲以榜眼及第，卻在數年間辭去文官之職轉而成為武官。（因為劉輝沒有對楸瑛採取行動，在藍家的命令下轉為武官）女性關係相當複雜，絳攸說他是「萬年常春頭」。（意指他一年四季常年發春，滿腦子都是與女性有關的風流韻事。）但也對女人動過真情的時候，初戀情人是玉華，但後來嫁給了大哥雪那，傷心前往貴陽。之後在後宮遇到與他同病相憐的珠翠，進而喜歡上她。從參加國試開始，便與李絳攸結下孽緣，常常戲弄他。
-		與絳攸一起接受了劉輝的「御賜之花」-菖蒲，兩人因此被後世譽為「雙花菖蒲」。故事開始的半月前，曾經和絳攸一起在府庫見過秀麗的母親薔君（的靈魂）。精通劍術、騎術、棋藝，真正的實力隱藏的很完美，相當的深藏不露，輕浮的外表是保護色。劍術僅在兩大將軍之下（但也只會在兩大將軍前展現自己的實力）。被後世流傳著「武有藍茈，文有李紅」所讚揚。與司馬迅是摯友。藍十三姬是楸瑛最疼愛的妹妹。</td>
-		<td><img src="image/楸瑛.jpg" width="300" height="150"></td>
-	</tr>
-	<tr>
-		<td style="color: #ff0000"><a id="ch5">李絳攸</a></td>
-		<td>年輕的文官，吏部侍郎。紅黎深的養子，曾經是他的部下。絳攸姓「李」，來自於養父黎深所喜歡的李樹；「絳」意謂大紅色，表示他是黎深引以為傲的兒子；「攸」是水流動的樣子，代表了「希望不要被紅家束縛」之意。16歲時高中狀元，與藍楸瑛是同窗。被譽為宮廷第一才子的有名能吏，亦是劉輝的近臣。是個不折不扣的大路癡，走出三十步以外的範圍就會迷路。雖然自稱「理性如銅牆鐵壁」，但迷路之後暴躁易怒，到歇斯底里的狀態。路癡的原因是養母百合擔心幼小的絳攸離開黎深，而將標示方向的物品亂放，導致日後毫無方向感。曾經有過喝醉反而沒有迷路的經驗。由於狀元及第時的親事攻勢因而厭惡女人，但是秀麗作為貴妃而在後宮時與相處甚歡（據絳攸的說法是，他當秀麗是徒弟而不是女人），經常隨著楸瑛拜訪其府邸，也教導國試的學習。由於那件事而被黎深說了「被搶先」時被其討厭。從劉輝那收下和楸瑛接受的紫花菖蒲（稱為「御賜之花」）。花菖蒲的花語是「信賴」。紫色花菖蒲又另有一「保護王者之花（秀麗）」之意。兩人因此被後世譽為「雙花菖蒲」 。因為在文官和紅秀麗同樣表現出色，而被後世以「武有藍茈，文有李紅」所讚揚。故事開始的半月前，曾經和楸瑛一起見過秀麗的母親薔君（的靈魂）。曾經被玖琅要求跟秀麗結婚以繼承紅家宗主之位。因為被黎深收養而視以他的意願為優先。</td>
-		<td><img src="image/絳攸.jpg" width="300" height="150"></td>
-	</tr>
-	<tr>
-		<td style="color: #ff0000"><a id="ch6">紅邵可</a></td>
-		<td>紅家的長子，秀麗的父親，黎深和玖琅的兄長。負責管理府庫的書籍，平易近人的有識之士。真實身分是暗殺集團「風之狼」的二代首領「黑狼」，初代黑狼「鬼姬」死後，為了保護紅家三兄弟而繼承了黑狼。鬼姬認為邵可是非常溫柔的人，對自己的事漠不關心，但為了弟弟就算要殺人也行，明明是這樣的人自己卻覺得自己相當的冷酷。被鬼姬稱為「魁斗」。（北斗七星的第一顆星，象徵死亡）在遇到紅仙之前因「保護弟弟」而活的責任而深感疲倦，在先代黑狼死後更決意為死而前往縹家暗殺紅仙，最終在付予「人類的自尊」及「世界」為代價解開紅仙的鎖鏈，並且決定自己要為了珍重的人而活著。深受黎深的仰慕，然而玖琅卻認為他為人太過和善，不適任宗主之職而將他逐出家門。由於他很早已隱藏自己的能力，所以人們不易發現他的學識高深莫測。不擅長泡茶，他所泡的茶味道十分苦，通稱「父茶」（取諧音之意）。酒量很強，但比不上自己妻子。自幼時便為秀麗打下優秀的國試基礎，收養靜蘭且知曉他的身分但依舊視他為己出。同時傳授劉輝學問並委託宋太傅教導武藝，使得劉輝將邵可視為依靠而經常造訪府庫與邵可談心。也得到街坊鄰居的尊敬，被稱為「紅老師」。擅長彈琵琶，其琵琶的音色和紅玉環一樣是「死之琵琶」（因為不斷殺人而導致彈奏出淒美絕倫的音色），在暗殺其大伯母紅玉環後絕彈（理由是彈奏殺人的琵琶會被討厭）。曾被先王威脅而彈奏，先王還曾對劉輝說：「如果世上好到連邵可都會彈起琵琶時，就表示你已成為最好的國王」。個性有為了所愛之人而不擇手段的一面，曾為了阻止秀麗被抓走，不惜打破封印眾多妖怪的寶鏡。也擁有能夠將女兒和國家放在天秤上衡量的「冰之理性」，是被先王、霄太師所認可的政治家。楸瑛也曾說過，若邵可參與政治，藍姓官吏將提早回歸。年輕時曾擔任藍家三胞胎（現任藍家宗主）的家庭教師並深受其崇拜，現在依然有書信往來。</td>
-		<td><img src="image/邵可.jpg" width="300" height="150"></td>
-	</tr></table>
-<h3>
-<a id="support-or-contact" class="anchor" href="#support-or-contact" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>音樂欣賞</h3>
-
-<iframe width="560" height="315" src="https://www.youtube.com/embed/DA9ebal3az0" frameborder="0" allowfullscreen></iframe>
-        <a href="#first">回到頁首</a>
-      </section>
-
-      <footer>
-        <span class="ribbon-outer">
-          <span class="ribbon-inner">
-            <p>this project by <a href="https://github.com/freda1226">freda1226</a> can be found on <a href="https://github.com/freda1226/homework">GitHub</a></p>
-          </span>
-          <span class="left-tail"></span>
-          <span class="right-tail"></span>
-        </span>
-        <p>Generated with <a href="https://pages.github.com">GitHub Pages</a> using Merlot</p>
-        <span class="octocat"></span>
-      </footer>
-
-    </div>
-
-    
-  </body>
+                                                        <div class="row">
+                                                            <div class="col-md-4">
+                                                                <div class="form-group">
+                                                                    <label class="control-label">Label</label>
+                                                                    <input type="text" class="form-control" name="label"/>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                <div class="form-group">
+                                                                    <label class="control-label"></label>
+                                                                    <div class="checkbox">
+                                                                        <label>
+                                                                            <input type="checkbox" name="multiline"> Multiline
+                                                                        </label>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                <div class="form-group">
+                                                                    <label class="control-label">Lines <small class="text-muted">(For multiline)</small></label>
+                                                                    <input type="number" class="form-control" name="lines" value=""/>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </fieldset>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading" role="tab">
+                                                <h4 class="panel-title">
+                                                    <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#progress-options" aria-expanded="false" aria-controls="collapseThree">
+                                                        Progress options
+                                                    </a>
+                                                </h4>
+                                            </div>
+                                            <div id="progress-options" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+                                                <div class="panel-body">
+                                                    <div class="callout callout-danger">
+                                                        <p>Progress does not update itself.</p>
+                                                        <p>But you can implement it easily when uploading or waiting something</p>
+                                                    </div>
+                                                    <fieldset class="progress-fieldset" disabled="">
+                                                        <div class="row">
+                                                            <div class="col-md-4">
+                                                                <label class="control-label">Label</label>
+                                                                <input type="text" class="form-control" name="label" value=""/>
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                <label class="control-label"></label>
+                                                                <div class="checkbox">
+                                                                    <label>
+                                                                        <input type="checkbox" name="showProgressLabel" checked> Progress label
+                                                                    </label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </fieldset>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <button class="btn btn-primary">Create popup</button>
+                        </form>
+                    </div>
+                </div>
+                <!--Notifications-->
+                <div id="notifications">
+                    <!--Examples-->
+                    <div id="lobibox-notification-examples">
+                        <h3>Examples</h3>
+                        <!--Basic notifications-->
+                        <fieldset>
+                            <legend>Basic notifications <small class="text-muted"><small>Can be closed by clicking on it</small></small></legend>
+                            <div class="bs-example">
+                                <button id="basicDefault" class="btn btn-default">Default</button>
+                                <button id="basicInfo" class="btn btn-info">Info</button>
+                                <button id="basicWarning" class="btn btn-warning">Warning</button>
+                                <button id="basicError" class="btn btn-danger">Error</button>
+                                <button id="basicSuccess" class="btn btn-success">Success</button>
+                            </div>
+                        </fieldset>
+                        <!--With image-->
+                        <fieldset>
+                            <legend>With image</legend>
+                            <div class="bs-example">
+                                <button id="basicDefaultImage" class="btn btn-default">Default</button>
+                                <button id="basicInfoImage" class="btn btn-info">Info</button>
+                                <button id="basicWarningImage" class="btn btn-warning">Warning</button>
+                                <button id="basicErrorImage" class="btn btn-danger">Error</button>
+                                <button id="basicSuccessImage" class="btn btn-success">Success</button>
+                            </div>
+                        </fieldset>
+                        <!--Disable sound-->
+                        <fieldset>
+                            <legend>Disable sound</legend>
+                            <div class="bs-example">
+                                <button id="basicInfoNoSound" class="btn btn-info">Info</button>
+                                <button id="basicWarningNoSound" class="btn btn-warning">Warning</button>
+                                <button id="basicErrorNoSound" class="btn btn-danger">Error</button>
+                                <button id="basicSuccessNoSound" class="btn btn-success">Success</button>
+                            </div>
+                        </fieldset>
+                        <!--Custom title-->
+                        <fieldset>
+                            <legend>Custom title</legend>
+                            <div class="bs-example">
+                                <button id="basicDefaultCustomTitle" class="btn btn-default">Default</button>
+                                <button id="basicInfoCustomTitle" class="btn btn-info">Info</button>
+                                <button id="basicWarningCustomTitle" class="btn btn-warning">Warning</button>
+                                <button id="basicErrorCustomTitle" class="btn btn-danger">Error</button>
+                                <button id="basicSuccessCustomTitle" class="btn btn-success">Success</button>
+                            </div>
+                        </fieldset>
+                        <!--Without icon and image-->
+                        <fieldset>
+                            <legend>Without icon and image</legend>
+                            <div class="bs-example">
+                                <button id="basicDefaultNoIcon" class="btn btn-default">Default</button>
+                                <button id="basicInfoNoIcon" class="btn btn-info">Info</button>
+                                <button id="basicWarningNoIcon" class="btn btn-warning">Warning</button>
+                                <button id="basicErrorNoIcon" class="btn btn-danger">Error</button>
+                                <button id="basicSuccessNoIcon" class="btn btn-success">Success</button>
+                            </div>
+                        </fieldset>
+                        <!--Increase delay time-->
+                        <fieldset>
+                            <legend>Increase delay time</legend>
+                            <div class="bs-example">
+                                <button id="basicDefaultCustomDelay" class="btn btn-default">Default</button>
+                                <button id="basicInfoCustomDelay" class="btn btn-info">Info</button>
+                                <button id="basicWarningCustomDelay" class="btn btn-warning">Warning</button>
+                                <button id="basicErrorCustomDelay" class="btn btn-danger">Error</button>
+                                <button id="basicSuccessCustomDelay" class="btn btn-success">Success</button>
+                            </div>
+                        </fieldset>
+                        <!--Sticky-->
+                        <fieldset>
+                            <legend>Sticky (without delay)</legend>
+                            <div class="bs-example">
+                                <button id="basicDefaultNoDelay" class="btn btn-default">Default</button>
+                                <button id="basicInfoNoDelay" class="btn btn-info">Info</button>
+                                <button id="basicWarningNoDelay" class="btn btn-warning">Warning</button>
+                                <button id="basicErrorNoDelay" class="btn btn-danger">Error</button>
+                                <button id="basicSuccessNoDelay" class="btn btn-success">Success</button>
+                            </div>
+                        </fieldset>
+                        <!--Alternative position-->
+                        <fieldset>
+                            <legend>Alternative position</legend>
+                            <div class="bs-example">
+                                <button id="basicInfoPosition" class="btn btn-info">Info</button>
+                                <button id="basicWarningPosition" class="btn btn-warning">Warning</button>
+                                <button id="basicErrorPosition" class="btn btn-danger">Error</button>
+                                <button id="basicSuccessPosition" class="btn btn-success">Success</button>
+                            </div>
+                        </fieldset>
+                        <!--Change width-->
+                        <fieldset>
+                            <legend>Change width</legend>
+                            <div class="bs-example">
+                                <button id="basicInfoWidth" class="btn btn-info">Info</button>
+                                <button id="basicWarningWidth" class="btn btn-warning">Warning</button>
+                                <button id="basicErrorWidth" class="btn btn-danger">Error</button>
+                                <button id="basicSuccessWidth" class="btn btn-success">Success</button>
+                            </div>
+                        </fieldset>
+                        <!--Change Animation-->
+                        <fieldset>
+                            <legend>Change Animation</legend>
+                            <p class="text-muted">For animation Lobibox is depended on animate.css. You can use any animate.css classes</p>
+                            <p>By default <code>.animated</code> class is added</p>
+                            <div class="bs-example">
+                                <button id="basicInfoAnimation" class="btn btn-info">Info</button>
+                                <button id="basicWarningAnimation" class="btn btn-warning">Warning</button>
+                                <button id="basicErrorAnimation" class="btn btn-danger">Error</button>
+                                <button id="basicSuccessAnimation" class="btn btn-success">Success</button>
+                            </div>
+                        </fieldset>
+                        <h2>Large Notifications</h2>
+                        <!--Basic examples-->
+                        <fieldset>
+                            <p>Large notifications</p>
+                            <ul>
+                                <li>are sticky</li>
+                                <li>can be closed only by clicking close button</li>
+                                <li>does not have delay</li>
+                                <li>are larger in width</li>
+                            </ul>
+                            <div class="bs-example">
+                                <!--<button id="largeDefaultBasic" class="btn btn-default">Default</button>-->
+                                <button id="largeInfoBasic" class="btn btn-info">Info</button>
+                                <button id="largeWarningBasic" class="btn btn-warning">Warning</button>
+                                <button id="largeErrorBasic" class="btn btn-danger">Error</button>
+                                <button id="largeSuccessBasic" class="btn btn-success">Success</button>
+                            </div>
+                        </fieldset>
+                        <!--With Image-->
+                        <fieldset>
+                            <h3>With Image</h3>
+                            <div class="bs-example">
+                                <!--<button id="largeDefaultImage" class="btn btn-default">Default</button>-->
+                                <button id="largeInfoImage" class="btn btn-info">Info</button>
+                                <button id="largeWarningImage" class="btn btn-warning">Warning</button>
+                                <button id="largeErrorImage" class="btn btn-danger">Error</button>
+                                <button id="largeSuccessImage" class="btn btn-success">Success</button>
+                            </div>
+                        </fieldset>
+                        <!--Alternative position-->
+                        <fieldset>
+                            <legend>Alternative position</legend>
+                            <div class="bs-example">
+                                <!--<button id="largeDefaultPosition" class="btn btn-default">Default</button>-->
+                                <button id="largeInfoPosition" class="btn btn-info">Info</button>
+                                <button id="largeWarningPosition" class="btn btn-warning">Warning</button>
+                                <button id="largeErrorPosition" class="btn btn-danger">Error</button>
+                                <button id="largeSuccessPosition" class="btn btn-success">Success</button>
+                            </div>
+                        </fieldset>
+                        <!--Change animation-->
+                        <fieldset>
+                            <legend>Change animation</legend>
+                            <div class="bs-example">
+                                <!--<button id="largeDefaultAnimation" class="btn btn-default">Default</button>-->
+                                <button id="largeInfoAnimation" class="btn btn-info">Info</button>
+                                <button id="largeWarningAnimation" class="btn btn-warning">Warning</button>
+                                <button id="largeErrorAnimation" class="btn btn-danger">Error</button>
+                                <button id="largeSuccessAnimation" class="btn btn-success">Success</button>
+                            </div>
+                        </fieldset>
+                        <h2>Mini notifications</h2>
+                        <p>For mini notifications icon and image is shown on small size and title is disabled by default. Although you can enable it by giving <code>title</code> parameter when initializing.</p>
+                        <!--Basic example-->
+                        <fieldset>
+                            <div class="bs-example">
+                                <button id="miniDefaultAnimation" class="btn btn-default">Default</button>
+                                <button id="miniInfoAnimation" class="btn btn-info">Info</button>
+                                <button id="miniWarningAnimation" class="btn btn-warning">Warning</button>
+                                <button id="miniErrorAnimation" class="btn btn-danger">Error</button>
+                                <button id="miniSuccessAnimation" class="btn btn-success">Success</button>
+                            </div>
+                        </fieldset>
+                        <!--With image-->
+                        <fieldset>
+                            <h3>With image</h3>
+                            <div class="bs-example">
+                                <button id="miniDefaultImage" class="btn btn-default">Default</button>
+                                <button id="miniInfoImage" class="btn btn-info">Info</button>
+                                <button id="miniWarningImage" class="btn btn-warning">Warning</button>
+                                <button id="miniErrorImage" class="btn btn-danger">Error</button>
+                                <button id="miniSuccessImage" class="btn btn-success">Success</button>
+                            </div>
+                        </fieldset>
+                        <!--Without icon-->
+                        <fieldset>
+                            <h3>Without icon</h3>
+                            <div class="bs-example">
+                                <button id="miniDefaultNoIcon" class="btn btn-default">Default</button>
+                                <button id="miniInfoNoIcon" class="btn btn-info">Info</button>
+                                <button id="miniWarningNoIcon" class="btn btn-warning">Warning</button>
+                                <button id="miniErrorNoIcon" class="btn btn-danger">Error</button>
+                                <button id="miniSuccessNoIcon" class="btn btn-success">Success</button>
+                            </div>
+                        </fieldset>
+                        <!--With title-->
+                        <fieldset>
+                            <h3>With title</h3>
+                            <div class="bs-example">
+                                <button id="miniDefaultTitle" class="btn btn-default">Default</button>
+                                <button id="miniInfoTitle" class="btn btn-info">Info</button>
+                                <button id="miniWarningTitle" class="btn btn-warning">Warning</button>
+                                <button id="miniErrorTitle" class="btn btn-danger">Error</button>
+                                <button id="miniSuccessTitle" class="btn btn-success">Success</button>
+                            </div>
+                        </fieldset>
+                        <!--Rounded corners-->
+                        <fieldset>
+                            <h3>Rounded corners <span class="label label-danger">new</span></h3>
+                            <div class="bs-example">
+                                <button id="miniDefaultRounded" class="btn btn-default">Default</button>
+                                <button id="miniInfoRounded" class="btn btn-info">Info</button>
+                                <button id="miniWarningRounded" class="btn btn-warning">Warning</button>
+                                <button id="miniErrorRounded" class="btn btn-danger">Error</button>
+                                <button id="miniSuccessRounded" class="btn btn-success">Success</button>
+                            </div>
+                        </fieldset>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <script src="lib/jquery.1.11.min.js"></script>
+        <!--<script src="bootstrap/dist/js/bootstrap.min.js"></script>-->
+        <script src="js/Lobibox.js"></script>
+        <script src="demo/demo.js"></script>
+    </body>
 </html>
