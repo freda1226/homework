@@ -7,6 +7,7 @@
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 	<script src="timecircle/inc/TimeCircles.js"></script>
 	<link href="timecircle/inc/TimeCircles.css" rel="stylesheet">
+	<script>$(document).ready(function(){$(“li.orange1”).hide();});</script>
 	<script>$(document).ready(function(){$("li.orange1").click(function(){$("#img1").toggle();});});</script>
 	<script>$(document).ready(function(){$("li.gray1").click(function(){$("#img2").toggle();});});</script>
 	<script>$(document).ready(function(){$("li.blue1").click(function(){$("#img3").toggle();});});</script>
@@ -16,15 +17,7 @@
 	<script>$(document).ready(function(){$("li.pink1").click(function(){$("#img7").toggle();});});</script>
 	<script>$(document).ready(function(){$("li.purple1").click(function(){$("#img8").toggle();});});</script>
 	<script>$(document).ready(function(){$("li.lightblue1").click(function(){$("#img9").toggle();});});</script>
-	<script>$(document).ready(function(){$("#hide").click(function(){$("#img1").hide();});</script>
-	<script>$(document).ready(function(){$("#hide").click(function(){$("#img2").hide();});</script>
-	<script>$(document).ready(function(){$("#hide").click(function(){$("#img3").hide();});</script>
-	<script>$(document).ready(function(){$("#hide").click(function(){$("#img4").hide();});</script>
-	<script>$(document).ready(function(){$("#hide").click(function(){$("#img5").hide();});</script>
-	<script>$(document).ready(function(){$("#hide").click(function(){$("#img6").hide();});</script>
-	<script>$(document).ready(function(){$("#hide").click(function(){$("#img7").hide();});</script>
-	<script>$(document).ready(function(){$("#hide").click(function(){$("#img8").hide();});</script>
-	<script>$(document).ready(function(){$("#hide").click(function(){$("#img9").hide();});</script>
+	
 </head>
 <style>
 	body{background-image:url("lovelive/lovelive1(2).JPG");
@@ -88,6 +81,15 @@
 <img src="lovelive/lovelive10.JPG">
 <div id="Date" data-date="2016-12-24 00:00:00" style="width: 100%;"><p>從12/24開始計時</p></div>
 <script>
+$(document).ready(function(){$(“li.orange1”).hide();});
+$(document).ready(function(){$(“li.gray1”).hide();});
+$(document).ready(function(){$(“li.blue1”).hide();});
+$(document).ready(function(){$(“li.yello1”).hide();});
+$(document).ready(function(){$(“li.red1”).hide();});
+$(document).ready(function(){$(“li.green1”).hide();});
+$(document).ready(function(){$(“li.pink1”).hide();});
+$(document).ready(function(){$(“li.purple1").hide();});
+$(document).ready(function(){$(“li.lightblue1”).hide();});
 $(document).ready(function() {$("#Date").TimeCircles();});
 </script>
 </body>
